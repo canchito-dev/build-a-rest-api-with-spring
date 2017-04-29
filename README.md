@@ -17,15 +17,17 @@ In this guide, you will learn how to set up and build a simple REST API with Spr
  	<li>A <strong><em>GET</em> </strong>request send to <code>http://localhost:8080/contact/{id}</code> must return a 200 response code on success as well as the information of the contact entry whose <em>id</em> is found from the URL and return a 200 response code on success or 404 if the requested contact id was not found.</li>
  	<li>A <strong><em>PUT</em> </strong>request send to<code> http://localhost:8080/contact/{id}</code> must update the information of an existing contact entry by using the information found from the request body and return a 200 response code on success as well as the information of the updated contact entry or 404 if the requested contact <em>id</em> was not found.</li>
 </ul>
-In order to achieve this, we will follow these steps:
-<ol>
+<p style="text-align: justify;">In order to achieve this, we will follow these steps:</p>
+
+<ol style="text-align: justify;">
  	<li>Add the needed dependencies.</li>
  	<li>Create the entity that contains the information of a single contact entry.</li>
  	<li>Create the repository interface with methods supporting reading, updating, deleting and creating contacts against a H2 database.</li>
  	<li>Create the service layer that is responsible of mapping contacts into domain objects and vice versa.</li>
  	<li>Create the controller class that processes HTTP requests and returns the correct response back to the client.</li>
 </ol>
-Spring Boot does not require any specific code layout to work, however, it is recommend that you locate your main application class in a root package above other classes. Here is the layout we will be using:
+<p style="text-align: justify;">Spring Boot does not require any specific code layout to work, however, it is recommend that you locate your main application class in a root package above other classes. Here is the layout we will be using:</p>
+
 <pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-linenumbers="false" data-enlighter-theme="enlighter">com
  +- canchitodev
      +- example
@@ -50,7 +52,8 @@ Spring Boot does not require any specific code layout to work, however, it is 
          |
          +- controller
              +- ContactrController.java</pre>
-So let's get started!
+<p style="text-align: justify;">So let's get started!</p>
+
 <h2 style="text-align: justify;">Getting Started</h2>
 <p style="text-align: justify;">This tutorial assumes you can create a project with the help of Spring Initializr or Spring Tool Suite™. If you have not, please follow the steps from this post <a href="http://canchito-dev/blog/2017/04/16/build-a-project-with-spring-initializer-or-spring-tool-suite/" target="_blank" rel="noopener noreferrer">Build a project with Spring Initializr or Spring Tool Suite™</a> and include the following dependencies: Web, JPA and H2.</p>
 <p style="text-align: justify;">On the other hand, if you already have an empty project, you can just add the needed dependencies by modifying the <code>pom.xml</code> file as follow:</p>
@@ -77,14 +80,15 @@ So let's get started!
 &lt;/dependencies&gt;</pre>
 <p style="text-align: justify;"> Allow me to give a brief description of what each dependency does:</p>
 
-<ul>
+<ul style="text-align: justify;">
  	<li style="text-align: justify;"><strong>spring-boot-starter-data-jpa:</strong> Uses data access technologies with enhanced support for JPA based data access layers.</li>
  	<li style="text-align: justify;"><strong>spring-boot-starter-web:</strong> Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container</li>
  	<li style="text-align: justify;"><strong>h2:</strong> H2 database engine. Creates an in memory database.</li>
  	<li style="text-align: justify;"><strong>spring-boot-starter-test:</strong> Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest and Mockito.</li>
 </ul>
-<h2>Creating the Entity Class</h2>
-An entity is a representation of a database register. In our case, it is a class representing a contact. Let's define the contact class under the domain package.
+<h2 style="text-align: justify;">Creating the Entity Class</h2>
+<p style="text-align: justify;">An entity is a representation of a database register. In our case, it is a class representing a contact. Let's define the contact class under the domain package.</p>
+
 <pre class="EnlighterJSRAW" data-enlighter-theme="classic">package com.canchitodev.example.domain;
 
 import javax.persistence.Column;
@@ -134,7 +138,7 @@ public class Contact {
         + ", mail=" + mail + "]";
   }
 }</pre>
-Here you have a <code>Contact </code>class with five attributes, the <code>uuid</code>, the <code>firstName</code>, the <code>lastName, the </code><code>telephone</code>, and the <code>mail</code>. You also have two constructors. The default constructor only exists because it is needed by JPA.  The other constructor is the one you’ll use to create instances of <code>Contact</code> to be saved to the database.
+<p style="text-align: justify;">Here you have a <code>Contact </code>class with five attributes, the <code>uuid</code>, the <code>firstName</code>, the <code>lastName, the </code><code>telephone</code>, and the <code>mail</code>. You also have two constructors. The default constructor only exists because it is needed by JPA.  The other constructor is the one you’ll use to create instances of <code>Contact</code> to be saved to the database.</p>
 <p style="text-align: justify;">The <code>@Entity</code> annotation specifies that this class is a JPA entity. And since there is no <code>@Table</code> annotation, JPA assumes that it is mapped to a table called <code>Contact</code>.</p>
 <p style="text-align: justify;">The property <code>uuid</code> is annotated with the <code>@Id</code> so that JPA will recognize it as the object’s ID. In addition, the annotation <code>@GeneratedValue</code> tell JPA that this property should be automatically generated following the strategy indicated by <code>GenerationType.AUTO</code>.</p>
 <p style="text-align: justify;">The rest of the properties are annotated with <code>@Column</code>, which means that they are mapped to a column with the name specified by name. <code>@Column</code>'s other properties just indicate that the value cannot be null and its max length.</p>
@@ -211,10 +215,10 @@ public class ContactService {
     this.contactRepository.delete(contact);
   }
 }</pre>
-<p style="text-align: justify;"> The <code>@Service</code> annotation allows for implementation classes to be autodetected through classpath scanning. Meanwhile, the <code>@Transactional</code> annotation describes transaction attributes on a method or class.</p>
+<p style="text-align: justify;">The <code>@Service</code> annotation allows for implementation classes to be autodetected through classpath scanning. Meanwhile, the <code>@Transactional</code> annotation describes transaction attributes on a method or class.</p>
 <p style="text-align: justify;">You might find it curious that in the <code>update()</code> method, we are sending a <code>Contact</code> as an argument. this is because as you will see when we implement the controller class, the request body is automatically mapped to a <code>Contact</code> object, but the fields that are not to be updated are null in this object. As a consequence, we need to get the already stored <code>Contact</code>, and merge the new information with the one already stored, before saving it.</p>
 
-<h2>Creating the Controller Class</h2>
+<h2 style="text-align: justify;">Creating the Controller Class</h2>
 <p style="text-align: justify;">A controller is the entry point from where all the HTTP request are handled. These components are easily identified by the <code>@RestController</code> annotation.</p>
 
 <pre class="EnlighterJSRAW" data-enlighter-language="java" data-enlighter-theme="classic">package com.canchitodev.example.controller;
@@ -275,11 +279,12 @@ public class ContactController {
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 }</pre>
-The <code>@RequestMapping</code> annotation specifies the URL which the method is mapped to. For instance, a request to <code>http://localhost:8080/contact/</code> with a request method <em><strong>GET</strong></em>, will return all the Contact objects stored in the database.
+<p style="text-align: justify;">The <code>@RequestMapping</code> annotation specifies the URL which the method is mapped to. For instance, a request to <code>http://localhost:8080/contact/</code> with a request method <em><strong>GET</strong></em>, will return all the Contact objects stored in the database.</p>
+
 <h2 style="text-align: justify;">Exception Handling</h2>
 <p style="text-align: justify;">There are at least three methods for handling exceptions:</p>
 
-<ol>
+<ol style="text-align: justify;">
  	<li style="text-align: justify;">Using HTTP status codes</li>
  	<li style="text-align: justify;">Using a controller based exception handler</li>
  	<li style="text-align: justify;">And finally, using a global exception handler</li>
@@ -388,10 +393,10 @@ public class GlobalExceptionHandler {
 <h2 style="text-align: justify;">Summary</h2>
 <p style="text-align: justify;">In this guide, you will learned the following:</p>
 
-<ul>
+<ul style="text-align: justify;">
  	<li style="text-align: justify;">How to set up and build a simple REST API with Spring.</li>
  	<li style="text-align: justify;">CRUD operations for entries that are saved into a database.</li>
  	<li style="text-align: justify;">How to map HTTP request to specific URL and its response codes.</li>
  	<li style="text-align: justify;">How to handle unmapped requests.</li>
 </ul>
-Hope you did enjoy it. And please, if you have any question, doubt or comment, do not hesitate and write us.
+<p style="text-align: justify;">Hope you did enjoy it. And please, if you have any question, doubt or comment, do not hesitate and write us.</p>
