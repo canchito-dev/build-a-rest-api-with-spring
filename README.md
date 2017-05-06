@@ -2,7 +2,7 @@
 In this guide, you will learn how to set up and build a simple REST API with Spring, that provides CRUD operations for entries that are saved into a database. In addition, you will learn how to map HTTP request to specific URL and its response codes, and how to handle unmapped requests.
 
 <h2 style="text-align: justify;">Contribute Code</h2>
-<p style="text-align: justify;">If you would like to become an active contributor to this project please follow theses simple steps:</p>
+<p style="text-align: justify;">If you would like to become an active contributor to this project please follow these simple steps:</p>
 
 <ol>
  	<li style="text-align: justify;">Fork it</li>
