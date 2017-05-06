@@ -400,3 +400,12 @@ public class GlobalExceptionHandler {
  	<li style="text-align: justify;">How to handle unmapped requests.</li>
 </ul>
 <p style="text-align: justify;">Hope you did enjoy it. And please, if you have any question, doubt or comment, do not hesitate and write us.</p>
+
+# Contribute Code
+If you would like to become an active contributor to this project please follow theses simple steps:
+
+1. Fork it
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create new Pull Request
