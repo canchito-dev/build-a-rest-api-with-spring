@@ -1,6 +1,17 @@
 # build-a-rest-api-with-spring
 In this guide, you will learn how to set up and build a simple REST API with Spring, that provides CRUD operations for entries that are saved into a database. In addition, you will learn how to map HTTP request to specific URL and its response codes, and how to handle unmapped requests.
 
+<h2 style="text-align: justify;">Contribute Code</h2>
+<p style="text-align: justify;">If you would like to become an active contributor to this project please follow theses simple steps:</p>
+
+<ol>
+ 	<li style="text-align: justify;">Fork it</li>
+ 	<li style="text-align: justify;">Create your feature branch</li>
+ 	<li style="text-align: justify;">Commit your changes</li>
+ 	<li style="text-align: justify;">Push to the branch</li>
+ 	<li style="text-align: justify;">Create new Pull Request</li>
+</ol>
+
 <h2 class="sect1" style="text-align: justify;">What you’ll need</h2>
 <ul style="text-align: justify;">
  	<li>About 30 minutes</li>
@@ -400,12 +411,3 @@ public class GlobalExceptionHandler {
  	<li style="text-align: justify;">How to handle unmapped requests.</li>
 </ul>
 <p style="text-align: justify;">Hope you did enjoy it. And please, if you have any question, doubt or comment, do not hesitate and write us.</p>
-
-# Contribute Code
-If you would like to become an active contributor to this project please follow theses simple steps:
-
-1. Fork it
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create new Pull Request
